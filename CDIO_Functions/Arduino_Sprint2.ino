@@ -24,8 +24,8 @@
   const char WiFiSSID[] = "GTI1";
   const char WiFiPSK[] = "1PV.arduino.Toledo";
 #else //Conexion fuera de la UPV
-  const char WiFiSSID[] = "MIWIFI_TtT7";
-  const char WiFiPSK[] = "7QF7QUC6";
+  const char WiFiSSID[] = "Redmi";
+  const char WiFiPSK[] = "45678901";
 #endif
 
 
@@ -189,6 +189,7 @@ void HTTPGet(String fieldData[], int numFields){
     }
 }
 
+Adafruit_ADS1115 ads1115;
 
 
 void setup() {
@@ -208,33 +209,28 @@ void setup() {
       Serial.print("Server_Rest: ");
       Serial.println(Rest_Host);
   #endif
+   // Inicializar el puerto serie para la depuración
+
+ Serial.begin(9600);
+
+ Serial.println("Inicializando...");
+
+ // Iniciar el ADS1115
+
+ ads1115.begin();
+
+ // Configurar la ganancia del ADS1115
+
+ ads1115.setGain(GAIN_ONE);
+
+ Serial.println("Ajustando la ganancia...");
+
+ Serial.println("Tomando medidas del canal AIN0");
+
+ Serial.println("Rango del ADC: +/- 4.096V (1 bit = 2mV)");
+
  }
 
-
-
-void loop() {
-    String data[ NUM_FIELDS_TO_SEND + 1];  // Podemos enviar hasta 8 datos
-    data[ 1 ] = String( random(10, 20) ); //Escribimos el dato 1. Recuerda actualizar numFields
-    #ifdef PRINT_DEBUG_MESSAGES
-        Serial.print( "Random1 = " );
-        Serial.println( data[ 1 ] );
-    #endif
-
-    data[ 2 ] = String( random(0, 10)*1.1 ); //Escribimos el dato 2. Recuerda actualizar numFields
-    #ifdef PRINT_DEBUG_MESSAGES
-        Serial.print( "Random2 = " );
-        Serial.println( data[ 2 ] );
-    #endif
-
-    //Selecciona si quieres enviar con GET(ThingSpeak o Dweet) o con POST(ThingSpeak)
-    //HTTPPost( data, NUM_FIELDS_TO_SEND );
-    HTTPGet( data, NUM_FIELDS_TO_SEND );
-
-    //Selecciona si quieres un retardo de 15seg para hacer pruebas o dormir el SparkFun
-    delay( 15000 );   
-    //Serial.print( "Goodnight" );
-    //ESP.deepSleep( sleepTimeSeconds * 1000000 );
-}
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Definir los canales de los sensores
@@ -259,7 +255,7 @@ int pHArrayIndex = 0;
 
 // Inicializar el objeto Adafruit_ADS1115
 
-Adafruit_ADS1115 ads1115;
+
 
 // Valores de humedad
 
@@ -267,29 +263,7 @@ const int valorEnSeco = 30500;
 
 const int valorEnAgua = 17000;
 
-void setup() {
 
- // Inicializar el puerto serie para la depuración
-
- Serial.begin(9600);
-
- Serial.println("Inicializando...");
-
- // Iniciar el ADS1115
-
- ads1115.begin();
-
- // Configurar la ganancia del ADS1115
-
- ads1115.setGain(GAIN_ONE);
-
- Serial.println("Ajustando la ganancia...");
-
- Serial.println("Tomando medidas del canal AIN0");
-
- Serial.println("Rango del ADC: +/- 4.096V (1 bit = 2mV)");
-
-}
 float funcionHumedad(unsigned int canalAdc) {
 
  int16_t adc0;
@@ -334,7 +308,7 @@ int funcionSalinidad() {
 
  delay(100);
 
- adc5 = ads1115.readADC_SingleEnded(3); // Cambiado para usar el ADS1115
+ adc5 = analogRead(A0); // Cambiado para usar el ADS1115
 
  digitalWrite(power_pin, LOW);
 
@@ -377,6 +351,27 @@ int funcionPH (unsigned int canalAdc) {
 }
 
 void loop() {
+    String data[ NUM_FIELDS_TO_SEND + 1];  // Podemos enviar hasta 8 datos
+    data[ 1 ] = String( random(10, 20) ); //Escribimos el dato 1. Recuerda actualizar numFields
+    #ifdef PRINT_DEBUG_MESSAGES
+        Serial.print( "Random1 = " );
+        Serial.println( data[ 1 ] );
+    #endif
+
+    data[ 2 ] = String( random(0, 10)*1.1 ); //Escribimos el dato 2. Recuerda actualizar numFields
+    #ifdef PRINT_DEBUG_MESSAGES
+        Serial.print( "Random2 = " );
+        Serial.println( data[ 2 ] );
+    #endif
+
+    //Selecciona si quieres enviar con GET(ThingSpeak o Dweet) o con POST(ThingSpeak)
+    //HTTPPost( data, NUM_FIELDS_TO_SEND );
+    HTTPGet( data, NUM_FIELDS_TO_SEND );
+
+    //Selecciona si quieres un retardo de 15seg para hacer pruebas o dormir el SparkFun
+    delay( 15000 );   
+    //Serial.print( "Goodnight" );
+    //ESP.deepSleep( sleepTimeSeconds * 1000000 );
 
  float Temperatura, Humedad, Salinidad, PH;
 
