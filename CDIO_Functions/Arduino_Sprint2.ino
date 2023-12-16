@@ -234,8 +234,9 @@ void setup() {
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Definir los canales de los sensores
+#define canalluz 3
 
-#define channelPH 2
+#define canalPH 2
 
 #define canalTemperatura 1//Añadir canal aquí
 
@@ -350,6 +351,15 @@ int funcionPH (unsigned int canalAdc) {
  
 }
 
+int16_t funcLuz(unsigned int canalAdc, float  V ){
+  int16_t adc;
+  adc = ads1115.readADC_SingleEnded(canalAdc);
+   static float Vout;
+  Vout = ((4.096) * adc) / (32767); //formula Luminositat
+  V = Vout;
+  return adc;
+}
+
 void loop() {
     String data[ NUM_FIELDS_TO_SEND + 1];  // Podemos enviar hasta 8 datos
     data[ 1 ] = String( random(10, 20) ); //Escribimos el dato 1. Recuerda actualizar numFields
@@ -369,11 +379,11 @@ void loop() {
     HTTPGet( data, NUM_FIELDS_TO_SEND );
 
     //Selecciona si quieres un retardo de 15seg para hacer pruebas o dormir el SparkFun
-    delay( 15000 );   
+    delay( 1000 );   
     //Serial.print( "Goodnight" );
     //ESP.deepSleep( sleepTimeSeconds * 1000000 );
 
- float Temperatura, Humedad, Salinidad, PH;
+ float Temperatura, Humedad, Salinidad, PH, Luz, V;
 
  Salinidad = funcionSalinidad();
 
@@ -381,7 +391,9 @@ void loop() {
 
  Humedad = funcionHumedad(canalHumedad);
  
- PH = funcionPH(channelPH);
+ PH = funcionPH(canalPH);
+ 
+ Luz = funcLuz(canalluz, V);
  
  // Imprimir los valores
  
@@ -392,7 +404,7 @@ void loop() {
  
  Serial.println("%");
  
- Serial.print("Canal: ");
+ Serial.print("Canal: 0");
  
  Serial.println(canalHumedad);
  
@@ -400,13 +412,13 @@ void loop() {
  
  //Temperatura:
  
- Serial.print("La temperatura es: ");
+ Serial.print("La temperatura es de: ");
  
  Serial.print(Temperatura);
  
  Serial.println("ºC");
  
- Serial.print("Canal: ");
+ Serial.print("Canal: 1");
  
  Serial.println(canalTemperatura);
  
@@ -420,7 +432,7 @@ void loop() {
  
  Serial.println("%");
  
- Serial.println("Canal: 3");
+ Serial.println("Canal: ADS");
  
  delay(1000);
  
@@ -434,6 +446,17 @@ void loop() {
  
  Serial.println("Canal: 2");
  
- delay(3000);
+ delay(1000);
+
+  //Luz
+  Serial.print("Luminosidad: ");
+ 
+ Serial.print(Luz);
+ 
+ Serial.println("");
+ 
+ Serial.println("Canal: 3");
+ 
+ delay(1000);
  
 }
