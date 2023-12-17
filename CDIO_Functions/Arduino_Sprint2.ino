@@ -428,7 +428,7 @@ void loop() {
  
  Serial.println("%");
  
- Serial.print("Canal: 0");
+ Serial.print("Canal: ");
  
  Serial.println(canalHumedad);
  
@@ -442,7 +442,7 @@ void loop() {
  
  Serial.println("ºC");
  
- Serial.print("Canal: 1");
+ Serial.print("Canal: ");
  
  Serial.println(canalTemperatura);
  
