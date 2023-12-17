@@ -354,8 +354,9 @@ int funcionPH (unsigned int canalAdc) {
 float funcLuz(unsigned int canalAdc, float  V ){
   int16_t adc;
   adc = ads1115.readADC_SingleEnded(canalAdc);
-   static float Vout;
-  Vout = ((4.096) * adc) / (32767); //formula Luminositat
+  static float Vout;
+  //Vout = ((4.096) * adc) / (32767); //formula Luminositat
+  Vout = map(adc, 100, 6500, 0, 100)
   V = Vout;
   return V;
 }
