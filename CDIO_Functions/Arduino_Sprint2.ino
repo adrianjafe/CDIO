@@ -375,31 +375,31 @@ void loop() {
 
 
     String data[ NUM_FIELDS_TO_SEND + 1];  // Podemos enviar hasta 8 datos
-    data[ 1 ] =  ); //Escribimos el dato 1. Recuerda actualizar numFields
+    data[ 1 ] = Temperatura  ); //Escribimos el dato 1. Recuerda actualizar numFields
     #ifdef PRINT_DEBUG_MESSAGES
         Serial.print( "Temperatura: " );
         Serial.println( data[ 1 ] );
     #endif
 
-    data[ 2 ] = ); //Escribimos el dato 2. Recuerda actualizar numFields
+    data[ 2 ] = Humedad ); //Escribimos el dato 2. Recuerda actualizar numFields
     #ifdef PRINT_DEBUG_MESSAGES
         Serial.print( "Humedad:" );
         Serial.println( data[ 2 ] );
     #endif
 
-    data[ 3 ] = ); //Escribimos el dato 2. Recuerda actualizar numFields
+    data[ 3 ] = Salinidad ); //Escribimos el dato 2. Recuerda actualizar numFields
     #ifdef PRINT_DEBUG_MESSAGES
         Serial.print( "Salinidad:" );
         Serial.println( data[ 2 ] );
     #endif
 
-    data[ 4 ] = ); //Escribimos el dato 2. Recuerda actualizar numFields
+    data[ 4 ] = PH ); //Escribimos el dato 2. Recuerda actualizar numFields
     #ifdef PRINT_DEBUG_MESSAGES
         Serial.print( "PH:" );
         Serial.println( data[ 4 ] );
     #endif
 
-    data[ 5 ] = ); //Escribimos el dato 2. Recuerda actualizar numFields
+    data[ 5 ] = V ); //Escribimos el dato 2. Recuerda actualizar numFields
     #ifdef PRINT_DEBUG_MESSAGES
         Serial.print( "Luminosidad:" );
         Serial.println( data[ 5 ] );
