@@ -361,28 +361,6 @@ int16_t funcLuz(unsigned int canalAdc, float  V ){
 }
 
 void loop() {
-    String data[ NUM_FIELDS_TO_SEND + 1];  // Podemos enviar hasta 8 datos
-    data[ 1 ] = String( random(10, 20) ); //Escribimos el dato 1. Recuerda actualizar numFields
-    #ifdef PRINT_DEBUG_MESSAGES
-        Serial.print( "Random1 = " );
-        Serial.println( data[ 1 ] );
-    #endif
-
-    data[ 2 ] = String( random(0, 10)*1.1 ); //Escribimos el dato 2. Recuerda actualizar numFields
-    #ifdef PRINT_DEBUG_MESSAGES
-        Serial.print( "Random2 = " );
-        Serial.println( data[ 2 ] );
-    #endif
-
-    //Selecciona si quieres enviar con GET(ThingSpeak o Dweet) o con POST(ThingSpeak)
-    //HTTPPost( data, NUM_FIELDS_TO_SEND );
-    HTTPGet( data, NUM_FIELDS_TO_SEND );
-
-    //Selecciona si quieres un retardo de 15seg para hacer pruebas o dormir el SparkFun
-    delay( 1000 );   
-    //Serial.print( "Goodnight" );
-    //ESP.deepSleep( sleepTimeSeconds * 1000000 );
-
  float Temperatura, Humedad, Salinidad, PH, Luz, V;
 
  Salinidad = funcionSalinidad();
@@ -394,6 +372,48 @@ void loop() {
  PH = funcionPH(canalPH);
  
  Luz = funcLuz(canalluz, V);
+
+
+    String data[ NUM_FIELDS_TO_SEND + 1];  // Podemos enviar hasta 8 datos
+    data[ 1 ] =  ); //Escribimos el dato 1. Recuerda actualizar numFields
+    #ifdef PRINT_DEBUG_MESSAGES
+        Serial.print( "Temperatura: " );
+        Serial.println( data[ 1 ] );
+    #endif
+
+    data[ 2 ] = ); //Escribimos el dato 2. Recuerda actualizar numFields
+    #ifdef PRINT_DEBUG_MESSAGES
+        Serial.print( "Humedad:" );
+        Serial.println( data[ 2 ] );
+    #endif
+
+    data[ 3 ] = ); //Escribimos el dato 2. Recuerda actualizar numFields
+    #ifdef PRINT_DEBUG_MESSAGES
+        Serial.print( "Salinidad:" );
+        Serial.println( data[ 2 ] );
+    #endif
+
+    data[ 4 ] = ); //Escribimos el dato 2. Recuerda actualizar numFields
+    #ifdef PRINT_DEBUG_MESSAGES
+        Serial.print( "PH:" );
+        Serial.println( data[ 4 ] );
+    #endif
+
+    data[ 5 ] = ); //Escribimos el dato 2. Recuerda actualizar numFields
+    #ifdef PRINT_DEBUG_MESSAGES
+        Serial.print( "Luminosidad:" );
+        Serial.println( data[ 5 ] );
+    #endif
+    //Selecciona si quieres enviar con GET(ThingSpeak o Dweet) o con POST(ThingSpeak)
+    //HTTPPost( data, NUM_FIELDS_TO_SEND );
+    HTTPGet( data, NUM_FIELDS_TO_SEND );
+
+    //Selecciona si quieres un retardo de 15seg para hacer pruebas o dormir el SparkFun
+    delay( 1000 );   
+    //Serial.print( "Goodnight" );
+    //ESP.deepSleep( sleepTimeSeconds * 1000000 );
+
+ 
  
  // Imprimir los valores
  
