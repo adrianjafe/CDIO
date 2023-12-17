@@ -373,8 +373,9 @@ void loop() {
  PH = funcionPH(canalPH);
  
  Luz = funcLuz(canalluz, V);
-
-
+    
+    Serial.println("Valores que se van a enviar a la nube: ");
+    Serial.println("---------------------------------------------")
     String data[ NUM_FIELDS_TO_SEND + 1];  // Podemos enviar hasta 8 datos
     data[ 1 ] = Temperatura  ); //Escribimos el dato 1. Recuerda actualizar numFields
     #ifdef PRINT_DEBUG_MESSAGES
@@ -405,6 +406,8 @@ void loop() {
         Serial.print( "Luminosidad:" );
         Serial.println( data[ 5 ] );
     #endif
+    Serial.println("---------------------------------------------");
+    Serial.println(" ");
     //Selecciona si quieres enviar con GET(ThingSpeak o Dweet) o con POST(ThingSpeak)
     //HTTPPost( data, NUM_FIELDS_TO_SEND );
     HTTPGet( data, NUM_FIELDS_TO_SEND );
