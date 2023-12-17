@@ -356,7 +356,7 @@ float funcLuz(unsigned int canalAdc, float  V ){
   adc = ads1115.readADC_SingleEnded(canalAdc);
   static float Vout;
   //Vout = ((4.096) * adc) / (32767); //formula Luminositat
-  Vout = map(adc, 100, 6500, 0, 100)
+  Vout = map(adc, 100, 6500, 0, 100);
   V = Vout;
   return V;
 }
@@ -380,19 +380,21 @@ void loop() {
     data[ 1 ] = (Temperatura); //Escribimos el dato 1. Recuerda actualizar numFields
     #ifdef PRINT_DEBUG_MESSAGES
         Serial.print( "Temperatura: " );
-        Serial.println( data[ 1 ] );
+        Serial.print( data[ 1 ] );
+        Serial.println(" ºC")
     #endif
 
     data[ 2 ] = (Humedad); //Escribimos el dato 2. Recuerda actualizar numFields
     #ifdef PRINT_DEBUG_MESSAGES
         Serial.print( "Humedad:" );
-        Serial.println( data[ 2 ] );
+        Serial.print( data[ 2 ] );
+        Serial.println("%")
     #endif
 
     data[ 3 ] = (Salinidad); //Escribimos el dato 2. Recuerda actualizar numFields
     #ifdef PRINT_DEBUG_MESSAGES
         Serial.print( "Salinidad:" );
-        Serial.println( data[ 2 ] );
+        Serial.println( data[ 3 ] );
     #endif
 
     data[ 4 ] = (PH); //Escribimos el dato 2. Recuerda actualizar numFields
