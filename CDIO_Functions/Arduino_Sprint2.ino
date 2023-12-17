@@ -351,13 +351,13 @@ int funcionPH (unsigned int canalAdc) {
  
 }
 
-int16_t funcLuz(unsigned int canalAdc, float  V ){
+float funcLuz(unsigned int canalAdc, float  V ){
   int16_t adc;
   adc = ads1115.readADC_SingleEnded(canalAdc);
    static float Vout;
   Vout = ((4.096) * adc) / (32767); //formula Luminositat
   V = Vout;
-  return adc;
+  return V;
 }
 
 void loop() {
