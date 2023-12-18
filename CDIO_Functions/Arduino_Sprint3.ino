@@ -373,17 +373,17 @@ void loop() {
   //Luz
   Serial.print("Luminosidad: ");
   if(Luz>=40 && Luz<100){
-    Serial.print("Oscuro.");
+    Serial.println("Oscuro.");
   }
-  else if(Luz>100 && Luz<140){
-    Serial.print("Sombra.");
+  else if(Luz>100 && Luz<130){
+    Serial.println("Sombra.");
   }
-  else if(Luz>150 && Luz<180){
-    Serial.print("Ambiente.");
+  else if(Luz>130 && Luz<180){
+    Serial.println("Ambiente.");
   }
   else if(Luz>180){
-    Serial.print("Hay luz artificial.");
+    Serial.println("Hay luz artificial.");
   };
   Serial.println("Canal: 3");
-  delay(10000);
+  delay(1000);
 }
