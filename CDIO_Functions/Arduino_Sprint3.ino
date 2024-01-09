@@ -1,7 +1,8 @@
 #include "libreria.h"
 const int power_pin = 5; // Replace with the actual pin number
 Sensores sensores(power_pin);
-
+#include <ESP8266WiFi.h>
+#include <Adafruit_ADS1X15.h>
 #define PRINT_DEBUG_MESSAGES
 #define PRINT_HTTP_RESPONSE
 
@@ -20,7 +21,6 @@ Sensores sensores(power_pin);
   const char WiFiSSID[] = "Redmi";
   const char WiFiPSK[] = "45678901";
 #endif
-
 
 //SERVER Definitions
 #if defined(WiFi_CONNECTION_UPV) //Conexion UPV
@@ -44,8 +44,7 @@ WiFiClient client;
   const char Rest_Host[] = "dweet.io";
   String MyWriteAPIKey="cdiocurso2023g08"; // Escribe la clave de tu canal Dweet
 #endif
-#define NUM_FIELDS_TO_SEND 2 //Numero de medidas a enviar al servidor REST (Entre 1 y 8)
-
+#define NUM_FIELDS_TO_SEND 5 //Numero de medidas a enviar al servidor REST (Entre 1 y 8)
 
 //Pin Definitions
 const int LED_PIN = 5; // Thing's onboard, green LED
@@ -152,11 +151,7 @@ void HTTPGet(String fieldData[], int numFields){
     #endif  
   }
 }
-}
-
-void connectWiFi() {
-    // Your WiFi connection code here
-
+Adafruit_ADS1115 ads1115;
 
 void setup() {
     #ifdef PRINT_DEBUG_MESSAGES
@@ -226,7 +221,7 @@ void loop() {
   #endif
 
   //Envio de datos de PH
-  data[ 4 ] = ( ph );
+  data[ 4 ] = ( pH );
   #ifdef PRINT_DEBUG_MESSAGES
     Serial.print( "PH: " );
     Serial.println( data[ 4 ] );
